@@ -1,7 +1,7 @@
 import pandas as pd
 
 def karim(data):
-    pass
+    
 
 def daan(data):
     pass
