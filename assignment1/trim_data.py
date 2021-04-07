@@ -5,7 +5,7 @@ import dateparser
 import copy
 
 
-def trim_programma():
+def trim_program():
     program_abbrev = {
     'AI':'Artificial Intelligence',
     'BA':'Business Administration',
@@ -22,7 +22,7 @@ def trim_programma():
     
     programs = df.iloc[:, 1]
 
-    for i in range(len(programs)):
+    for i in range(response_count):
         # change input to upper case
         programs[i] = programs[i].upper()
 
@@ -51,28 +51,36 @@ def trim_programma():
             # remove 'M' if this is the case (can't be in stop_words due to words containing 'M')
         
         programs[i] = " ".join(prog_words)
-        
-
 
 
 def trim_prev_courses():
-    # marlon
-    courses = df.iloc[:, 2:6]
-    pass
+    # define two columns that need to be trimmed
+    info_retrieval = df.iloc[:, 3]
+    data_bases = df.iloc[:, 5]
 
+    # create dicts for transformation
+    dict_01 = {'0': 'no', '1': 'yes', 'unknown':'unknown'}
+    dict_janee = {'nee':'no', 'ja':'yes', 'unknown':'unknown'}
+
+    # transform values
+    for i in range(response_count):
+        info_retrieval[i] = dict_01[info_retrieval[i]]
+        data_bases[i] = dict_janee[data_bases[i]]
+
+    
 def trim_gender():
     gender = df.iloc[:, 6]
     # all genders are conform the list, so no trimming needed
     genders = ["male", "female", "unknown"]
     for sex in gender:
         if sex not in genders:
-            print("if you seet his we need to trim more:", sex)
-    pass
+            pass
+            # print("if you seet his we need to trim more:", sex)
 
 def trim_choc():
     chocolate = df.iloc[:, 7]
     # five radio options from the form so no trimming needed
-    pass
+    
 
 def trim_birthday():
     birthday = df.iloc[:, 8]
@@ -97,7 +105,8 @@ def trim_stand():
 
     for row in standing:
         if row not in correct_options:
-            print("standing needs trimming:", row)
+            pass
+            # print("standing needs trimming:", row)
 
 def trim_stress():
     stress = df.iloc[:, 11]
@@ -135,7 +144,6 @@ def trim_RN():
 
 def trim_bedtime():
     bed = df.iloc[:, 14]
-    print(bed)
 
     for i in range(len(bed)):
         bed[i] = bed[i].replace(".", ":")
@@ -160,7 +168,6 @@ def trim_bedtime():
             try:
                 int(bed[i])
                 if len(str(bed[i])) == 2:
-                    print(bed[i])
                     if int(bed[i]) > 24:
                         bed[i] = None
                     else:
@@ -177,17 +184,17 @@ def trim_good_day():
 
 df = pd.read_csv("ODI-2021.csv")
 
-# trim_programma()
-# trim_prev_courses()
+response_count = max(df.count())
+
+trim_program()
+trim_prev_courses()
 # trim_gender()
 # trim_choc()
 # trim_birthday()
 # trim_neighbours()
 # trim_stand()
 # trim_stress()
-
 # trim_competition()
 # trim_RN()
-
-trim_bedtime()
-trim_good_day()
+# trim_bedtime()
+# trim_good_day()
