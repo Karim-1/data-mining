@@ -6,7 +6,7 @@ import datetime
 import copy
 
 
-def trim_programma():
+def trim_program():
     program_abbrev = {
     'AI':'Artificial Intelligence',
     'BA':'Business Administration',
@@ -23,7 +23,7 @@ def trim_programma():
     
     programs = df.iloc[:, 1]
 
-    for i in range(len(programs)):
+    for i in range(response_count):
         # change input to upper case
         programs[i] = programs[i].upper()
 
@@ -52,28 +52,36 @@ def trim_programma():
             # remove 'M' if this is the case (can't be in stop_words due to words containing 'M')
         
         programs[i] = " ".join(prog_words)
-        
-
 
 
 def trim_prev_courses():
-    # marlon
-    courses = df.iloc[:, 2:6]
-    pass
+    # define two columns that need to be trimmed
+    info_retrieval = df.iloc[:, 3]
+    data_bases = df.iloc[:, 5]
 
+    # create dicts for transformation
+    dict_01 = {'0': 'no', '1': 'yes', 'unknown':'unknown'}
+    dict_janee = {'nee':'no', 'ja':'yes', 'unknown':'unknown'}
+
+    # transform values
+    for i in range(response_count):
+        info_retrieval[i] = dict_01[info_retrieval[i]]
+        data_bases[i] = dict_janee[data_bases[i]]
+
+    
 def trim_gender():
     gender = df.iloc[:, 6]
     # all genders are conform the list, so no trimming needed
     genders = ["male", "female", "unknown"]
     for sex in gender:
         if sex not in genders:
-            print("if you seet his we need to trim more:", sex)
-    pass
+            pass
+            # print("if you seet his we need to trim more:", sex)
 
 def trim_choc():
     chocolate = df.iloc[:, 7]
     # five radio options from the form so no trimming needed
-    pass
+    
 
 def trim_birthday():
     birthday = df.iloc[:, 8]
@@ -98,7 +106,8 @@ def trim_stand():
 
     for row in standing:
         if row not in correct_options:
-            print("standing needs trimming:", row)
+            pass
+            # print("standing needs trimming:", row)
 
 def trim_stress():
     stress = df.iloc[:, 11]
@@ -115,11 +124,24 @@ def trim_stress():
             stress[i] = None
 
 def trim_competition():
-    pass
+    prices = df.iloc[:, 12]
+    for i in range(response_count):
+        # replace comma's with dots and remove € signs
+        prices[i] = prices[i].replace(',','.')
+        prices[i] = prices[i].replace('€', '')
+        try:
+            prices[i] = round(float(prices[i]),2)
+
+            if prices[i] > 100 or prices[i] < 0:
+                prices[i] = '-'
+        except:
+            prices[i] = '-'
+        
+        print(prices[i])
+    
 
 def trim_RN():
     rn = df.iloc[:, 13]
-
     for i in range(len(rn)):
         try:
             rn[i] = int(round(float(rn[i])))
@@ -177,14 +199,13 @@ def trim_bedtime():
                 except:
                     bed[i] = None
 
-def trim_good_day():
-    pass
 
 
+df = pd.read_csv('ODI-2021.csv')
 
-df = pd.read_csv("ODI-2021.csv")
+response_count = max(df.count())
 
-# trim_programma()
+# trim_program()
 # trim_prev_courses()
 # trim_gender()
 # trim_choc()
@@ -192,9 +213,6 @@ df = pd.read_csv("ODI-2021.csv")
 # trim_neighbours()
 # trim_stand()
 # trim_stress()
-
 # trim_competition()
 # trim_RN()
-
-trim_bedtime()
-# trim_good_day()
+# trim_bedtime()
