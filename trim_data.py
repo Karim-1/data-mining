@@ -3,17 +3,17 @@ import csv
 def trim_programma():
     pass
 
-def trim_ML():
+def trim_prev_courses(arg1, arg2, arg3, arg4):
+    # marlon
     pass
 
-def trim_IR():
+def trim_gender(arg1):
+    # daan
     pass
 
-def trim_ST():
-    pass
+def trim_choc(arg1):
+    pass 
 
-def trim_DB():
-    pass
 
 def trim_gender():
     pass
