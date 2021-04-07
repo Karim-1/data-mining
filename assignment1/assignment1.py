@@ -1,5 +1,14 @@
 import csv
 
+programma_abbrev = {
+    'AI':'Artificial Intelligence',
+    'CS':'Computional Science',
+    'QRM':'Quantitative Risk Management',
+    
+
+}
+
+
 def karim(data):
     for line in data:
         # tranform programme names
