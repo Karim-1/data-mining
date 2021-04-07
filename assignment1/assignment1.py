@@ -21,5 +21,6 @@ with open("ODI-2021.csv") as file:
     for row in reader:
         ODI_2021.append(row)
 
-karim(ODI_2021)
+print(ODI_2021)
+# karim(ODI_2021)
 # daan(ODI_2021)
