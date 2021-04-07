@@ -1,11 +1,5 @@
 import csv
 
-ODI_2021 = []
-with open("ODI-2021.csv") as file:
-    reader = csv.reader(file)
-    for row in reader:
-        ODI_2021.append(row)
-
 def trim_programma():
     pass
 
@@ -20,3 +14,10 @@ def trim_ST():
 
 def trim_DB():
     pass
+
+
+ODI_2021 = []
+with open("ODI-2021.csv") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        ODI_2021.append(row)
