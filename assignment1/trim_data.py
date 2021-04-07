@@ -2,6 +2,7 @@ import csv
 from numpy.core.numeric import NaN
 import pandas as pd
 import dateparser
+import datetime
 import copy
 
 
@@ -114,14 +115,6 @@ def trim_stress():
             stress[i] = None
 
 def trim_competition():
-    comp = df.iloc[:, 12]
-    # print(comp)
-
-    # for i in range(len(comp)):
-    #     try:
-    #         int(comp[i])
-    #     except:
-    #         print(comp[i])
     pass
 
 def trim_RN():
@@ -134,41 +127,55 @@ def trim_RN():
             rn[i] = None
 
 def trim_bedtime():
+    """ it aint pretty but it does the job, a lot of different types of tiems are entered and we are filtering a lot like this """
     bed = df.iloc[:, 14]
-    print(bed)
 
     for i in range(len(bed)):
+        bed[i] = bed[i].replace(" ", "")
+        bed[i] = bed[i].replace("24", "00")
         bed[i] = bed[i].replace(".", ":")
-        bed[i] = bed[i].replace(",", ":")
 
-        if ":" in bed[i]:
-            bed[i] = bed[i].replace("am", "")
-            if "pm" in bed[i]:
-                bed[i] = bed[i].replace("pm", "")
-                temp = bed[i].split(":")
-                temp[0] = str(int(temp[0]) + 12)
-                bed[i] = ":".join(temp)
-        elif "pm" in bed[i] or "PM" in bed[i]:
+        if "?" in bed[i]:
+            bed[i] = None
+            continue
+        if "pm" in bed[i] or "PM" in bed[i]:
             bed[i] = bed[i].replace("pm", "")
             bed[i] = bed[i].replace("PM", "")
-            bed[i] = int(bed[i]) + 12
-            bed[i] = str(bed[i]) + ":00"
-        elif "am" in bed[i] or "AM" in bed[i]:
+        elif "am" in bed[i] or "AM" in bed[i] or "a.m." in bed[i]:
             bed[i] = bed[i].replace("am", "")
             bed[i] = bed[i].replace("AM", "")
-        else:
+            bed[i] = bed[i].replace("a.m.", "")
+
+        try:
+            int(bed[i])
+            if len(str(bed[i])) == 1:
+                bed[i] = "0" + str(bed[i]) + ":00"
+            if len(str(bed[i])) == 2:
+                if int(bed[i]) > 24:
+                    bed[i] = None
+                else:
+                    if int(bed[i]) > 6 and int(bed[i]) < 12:
+                        bed[i] = int(bed[i]) + 12
+
+                    if int(bed[i]) == 24:
+                        bed[i] = "00"
+
+                    bed[i] = str(bed[i]) + ":00"
+            elif len(str(bed[i])) == 4:
+                bed[i] = str(bed[i][0:2]) + ":" + str(bed[i][2:])
+        except:
+            pass
+
+        try:
+            bed[i] = datetime.datetime.strptime(bed[i], '%H:%M').time()
+        except:
             try:
-                int(bed[i])
-                if len(str(bed[i])) == 2:
-                    print(bed[i])
-                    if int(bed[i]) > 24:
-                        bed[i] = None
-                    else:
-                        pass
+                bed[i] = datetime.datetime.strptime(bed[i], '%H.%M').time()
             except:
-                # print("oh shit")
-                pass
-                # print(bed[i])
+                try:
+                    bed[i] = datetime.datetime.strptime(bed[i], '%H').time()
+                except:
+                    bed[i] = None
 
 def trim_good_day():
     pass
@@ -190,4 +197,4 @@ df = pd.read_csv("ODI-2021.csv")
 # trim_RN()
 
 trim_bedtime()
-trim_good_day()
+# trim_good_day()
