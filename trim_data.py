@@ -15,6 +15,9 @@ def trim_ST():
 def trim_DB():
     pass
 
+def trim_gender():
+    pass
+
 
 ODI_2021 = []
 with open("ODI-2021.csv") as file:
