@@ -137,7 +137,6 @@ def trim_competition():
         except:
             prices[i] = '-'
         
-        print(prices[i])
     
 
 def trim_RN():
