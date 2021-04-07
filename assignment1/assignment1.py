@@ -3,6 +3,7 @@ from tqdm import tqdm
 import numba
 import pandas as pd
 
+
 def karim(data):
     for line in data:
         print(line)
