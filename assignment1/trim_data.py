@@ -123,15 +123,21 @@ def trim_stress():
             stress[i] = None
 
 def trim_competition():
-    comp = df.iloc[:, 12]
-    # print(comp)
+    prices = df.iloc[:, 12]
+    for i in range(response_count):
+        # replace comma's with dots and remove € signs
+        prices[i] = prices[i].replace(',','.')
+        prices[i] = prices[i].replace('€', '')
+        try:
+            prices[i] = round(float(prices[i]),2)
 
-    # for i in range(len(comp)):
-    #     try:
-    #         int(comp[i])
-    #     except:
-    #         print(comp[i])
-    pass
+            if prices[i] > 100 or prices[i] < 0:
+                prices[i] = '-'
+        except:
+            prices[i] = '-'
+        
+        print(prices[i])
+    
 
 def trim_RN():
     rn = df.iloc[:, 13]
@@ -182,19 +188,19 @@ def trim_good_day():
 
 
 
-df = pd.read_csv("ODI-2021.csv")
+df = pd.read_csv('ODI-2021.csv')
 
 response_count = max(df.count())
 
-trim_program()
-trim_prev_courses()
+# trim_program()
+# trim_prev_courses()
 # trim_gender()
 # trim_choc()
 # trim_birthday()
 # trim_neighbours()
 # trim_stand()
 # trim_stress()
-# trim_competition()
+trim_competition()
 # trim_RN()
 # trim_bedtime()
 # trim_good_day()
