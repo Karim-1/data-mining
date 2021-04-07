@@ -63,7 +63,7 @@ Timestamp,What programme are you in?,Have you taken a course on machine learning
 3/29/2021 15:05:38,Econometrics & Operation Research master,yes,1,mu,ja,male,neither,26-08,0,yes,60,30,7,22:30,8 hours of sleep,Friendly people
 3/29/2021 15:09:54,QRM,no,0,mu,nee,male,fat,16-05-1996,1,no,50,20,7,23:30,Efficiency,Accomplishment
 3/29/2021 15:35:37,CS,yes,0,mu,unknown,female,neither,05-10,1,no,20,15,6,03:00,swimming,beer
-3/29/2021 15:41:09,M AI,yes,1,mu,ja,female,I have no idea what you are talking about,nunya,0,no,40,0,1,3:30,a good night's sleep,a relaxed morning
+3/29/2021 15:41:09,AI,yes,1,mu,ja,female,I have no idea what you are talking about,nunya,0,no,40,0,1,3:30,a good night's sleep,a relaxed morning
 3/29/2021 16:23:33,OR,no,0,mu,nee,male,neither,09/09/1996,0,no,77,5,4,02:00,No work/free time,Beautiful weather
 3/29/2021 16:35:14,Master Bioinformatics & Systems Biology,yes,0,mu,nee,male,neither,04/07,0,no,15,99,11,0,Fun activities,Good food
 3/29/2021 16:35:49,Finance and technology,yes,0,mu,nee,male,fat,15-08-1994,0,no,60,20,8,2,Warm weather,enough food
@@ -101,7 +101,7 @@ Timestamp,What programme are you in?,Have you taken a course on machine learning
 3/29/2021 23:03:17,BA,yes,0,mu,ja,female,fat,13-10-1998,0,no,66,I believe that the money should be split equally,7,00:30,Nice weather,Being with my friends
 3/29/2021 23:24:53,AI,no,1,mu,ja,male,fat,1993,0,no,30,70,8,01:30,Low stresslevels,Hanging out with friends
 3/29/2021 23:27:11,QRM,no,0,mu,nee,male,fat,08-10-1997,1,no,0,0,3417,02:00,Good food,Good mood
-3/29/2021 23:32:18,Msc. Finance and Technology,yes,0,mu,nee,male,slim,17-jan-1996,0,no,50,25,5,03:00,Ice cream,No deadlines for the subsequent days
+3/29/2021 23:32:18,Msc Finance and Technology,yes,0,mu,nee,male,slim,17-jan-1996,0,no,50,25,5,03:00,Ice cream,No deadlines for the subsequent days
 3/29/2021 23:41:02,Business Analytics,yes,0,mu,nee,male,neither,01-08,0,no,60,1,7,00:15,Enough sleep,Good food
 3/29/2021 23:53:22,Econometrics,no,0,mu,nee,male,I have no idea what you are talking about,29-07-1997,0,no,21,0.22,5,22:55,"wake up early, be productive and relax with friends in evening",Learning something new
 3/30/2021 2:59:37,CS,no,0,sigma,ja,male,neither,02.05.1999,5,no,75,0,7,4AM,no stress,good weather
@@ -142,7 +142,7 @@ Timestamp,What programme are you in?,Have you taken a course on machine learning
 3/30/2021 11:09:42,Business Administration,no,0,mu,nee,male,fat,21-08-1998,3,no,10,10,8,22:00,Tasteful food,Good weather
 3/30/2021 11:10:49,Artificial Intelligence Masters,yes,0,mu,nee,male,fat,october,1,no,80,10,8,1am,Sun,Beauty
 3/30/2021 11:11:47,Msc AI,no,0,mu,ja,female,unknown,15-05,1,no,20,10,5,23:00,Sun,Smile
-3/30/2021 11:28:20,"RM AI, RM Cognitive Neuropsychology",no,0,mu,nee,female,neither,22-05,1,no,0,70,5,23,fun,sun
+3/30/2021 11:28:20,AI,no,0,mu,nee,female,neither,22-05,1,no,0,70,5,23,fun,sun
 3/30/2021 11:30:10,RMA Human Language Technology,yes,1,mu,nee,female,neither,11-11-1997,0,no,30,25,7,23.1,sunshine,love
 3/30/2021 11:30:34,BA,yes,1,mu,ja,male,fat,25-07-1999,0,no,80,10,7,23:00,Doing well on study,Feyenoord winning a game
 3/30/2021 11:31:11,Bioinformatics,yes,0,sigma,nee,female,slim,08-03-1997,1,no,0,"8,97",8,0.45,Sun,My dog
@@ -178,7 +178,7 @@ Timestamp,What programme are you in?,Have you taken a course on machine learning
 3/30/2021 12:52:26,Bioinfromatics,yes,1,unknown,ja,male,fat,15-10-1991,2,yes,70,5,42,9:00,Having friends come over,Spending time wth my brothers
 3/30/2021 12:53:52,Econometrics and Operations Research ,no,0,mu,ja,female,neither,16.05.1993,2,no,80,5,25,11:45pm,Shining sun,being appeciated
 3/30/2021 12:56:10,AI,no,0,mu,nee,female,slim,01-05-1997,0,no,80,2,9,00:00,My friends,Good grades
-3/30/2021 12:57:17,E&OR,yes,0,mu,nee,male,I have no idea what you are talking about,1997,0,yes,60,69,8,01:00,memes,money
+3/30/2021 12:57:17,OR,yes,0,mu,nee,male,I have no idea what you are talking about,1997,0,yes,60,69,8,01:00,memes,money
 3/30/2021 12:58:29,CLS,no,0,mu,ja,male,fat,March 2nd,0,no,77,4321,921,0200,Spend with Girlfriend,Dinner and game with best friend
 3/30/2021 12:59:30,Econometrics & Data Science,yes,0,mu,ja,male,fat,02/07/1998,2,no,10,1,7,00:30,friends,beer
 3/30/2021 13:06:45,Bioinformatics & Systems biology,yes,0,unknown,unknown,male,unknown,14/12,1,no,90,101,66,0,21/04,01/10
@@ -228,7 +228,6 @@ Timestamp,What programme are you in?,Have you taken a course on machine learning
 3/30/2021 13:58:13,Information Studies: Data Science (track),yes,0,unknown,ja,female,neither,02-10-1995,0,yes,75,10,5,42,nothing,nothing
 3/30/2021 13:59:04,Bioinformatics ,yes,1,sigma,nee,male,neither,21/5,0,no,80,50,18,24:00,good weather ,no body dies 
 3/30/2021 13:59:37,Artificial Intelligence,yes,0,mu,nee,male,slim,14-10-1994,0,no,0,100,7,23:34,Love,Happiness
-3/30/2021 14:04:42,https://forms.gle/eTy4nEs3khRqPtMLA,yes,0,mu,ja,male,I have no idea what you are talking about,10-02-1996,2,no,55,1.000.000,5,?,Productivity,Fun
 3/30/2021 14:05:45,Data Science (information studies),yes,0,mu,ja,female,fat,02-03-1998,0,no,100,70,98,15:00,nice food,good workout
 3/30/2021 14:10:58,Business Analytics,yes,1,mu,ja,unknown,neither,-,1,yes,40,5,8,-,-,-
 3/30/2021 14:21:35,Computational Science,no,0,mu,nee,male,slim,2-7,100,yes,66,0.8,6,23:00,Sun,Sports
@@ -278,9 +277,8 @@ Timestamp,What programme are you in?,Have you taken a course on machine learning
 3/30/2021 18:19:03,Bioinformatics,no,0,sigma,ja,female,fat,23-1-1997,14,no,100000000000,:(,5,???,less hmw,clear instructions to get 10 from hmw!
 3/30/2021 18:35:43,MSC Bioinformatics and systems Biology,yes,0,sigma,ja,male,fat,20/06/1993,300,unknown,101,100,6,1,productive,funny
 3/30/2021 18:39:26,Master AI at UvA,yes,1,mu,nee,male,slim,16-06-2000,1,no,40,50,50,50,50,50
-3/30/2021 18:39:31,M Bioinformatics and Systems Biology,yes,0,mu,nee,female,I have no idea what you are talking about,06-07-1996,0,no,100,30,10,16:00,"No homework, no school","No school, no homework"
+3/30/2021 18:39:31,Bioinformatics and Systems Biology,yes,0,mu,nee,female,I have no idea what you are talking about,06-07-1996,0,no,100,30,10,16:00,"No homework, no school","No school, no homework"
 3/30/2021 18:39:35,Econometrics and Data Science,yes,0,mu,nee,male,fat,31/08/1997,0,no,50,50,9,2:00,Good weather,No covid
-3/30/2021 18:48:33,Je zusje,yes,1,mu,ja,unknown,slim,01-01-2001,6,yes,99,Some money,0,Kaolo engels maakt mu hoofd heet,1,2
 3/30/2021 18:56:08,EDS,no,0,mu,ja,male,I have no idea what you are talking about,01-01-2001,4,no,-2,100,O0087022017,01:11am,Puthie,More puthie
 3/30/2021 19:03:43,Artificial Intelligence,yes,0,mu,ja,male,I have no idea what you are talking about,28.07.1998,0,no,35,33,1321,23:49,weather,full stomach
 3/30/2021 19:05:48,QRM,yes,1,mu,ja,female,I have no idea what you are talking about,27-06-1996,1,no,22,75,5,02:00,Surrounded with family,Food

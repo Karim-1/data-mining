@@ -3,14 +3,6 @@ from tqdm import tqdm
 import numba
 import pandas as pd
 
-programma_abbrev = {
-    'AI':'Artificial Intelligence',
-    'CS':'Computional Science',
-    'QRM':'Quantitative Risk Management',
-    
-
-}
-
 
 def karim(data):
     for line in data:
