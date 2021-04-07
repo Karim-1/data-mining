@@ -136,7 +136,6 @@ def trim_competition():
         except:
             prices[i] = '-'
         
-        print(prices[i])
     
 
 def trim_RN():
@@ -192,15 +191,16 @@ df = pd.read_csv('ODI-2021.csv')
 
 response_count = max(df.count())
 
-# trim_program()
-# trim_prev_courses()
-# trim_gender()
-# trim_choc()
-# trim_birthday()
-# trim_neighbours()
-# trim_stand()
-# trim_stress()
+trim_program()
+trim_prev_courses()
+trim_gender()
+trim_choc()
+trim_birthday()
+trim_neighbours()
+trim_stand()
+trim_stress()
 trim_competition()
-# trim_RN()
-# trim_bedtime()
-# trim_good_day()
+trim_RN()
+trim_bedtime()
+trim_good_day()
+
