@@ -31,16 +31,7 @@ def trim_birthday():
           'august', 'september', 'october', 'november', 'december']
     pass
 
-def trim_birthday():
-    pass
-
-def trim_birthday():
-    pass
-
 def trim_neighbours():
-    pass
-
-def trim_birthday():
     pass
 
 def trim_stand():
@@ -58,7 +49,7 @@ def trim_RN():
 def trim_bedtime():
     pass
 
-def trim_good_day(arg1, arg2):
+def trim_good_day():
     pass
 
 
@@ -70,3 +61,10 @@ trim_prev_courses()
 trim_gender()
 trim_choc()
 trim_birthday()
+trim_neighbours()
+trim_stand()
+trim_stress()
+trim_competition()
+trim_RN()
+trim_bedtime()
+trim_good_day()
