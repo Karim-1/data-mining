@@ -1,4 +1,3 @@
-import csv
 from numpy.core.numeric import NaN
 import pandas as pd
 import dateparser
@@ -199,8 +198,7 @@ def trim_bedtime():
                     bed[i] = None
 
 
-
-df = pd.read_csv('ODI-2021.csv')
+df = pd.read_csv('data/ODI-2021.csv')
 
 response_count = max(df.count())
 
@@ -215,3 +213,5 @@ trim_stress()
 trim_competition()
 trim_RN()
 trim_bedtime()
+
+df.to_csv('data/ODI-2021_trimmed.csv')
