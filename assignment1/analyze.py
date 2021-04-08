@@ -23,6 +23,10 @@ def pie_chart(data):
 
     plt.show()
 
+def correlation(data):
+    for list in data:
+        pass
+
 
 
 df = pd.read_csv('data/ODI-2021_trimmed.csv')
@@ -31,11 +35,37 @@ took_ML = list(df.iloc[:, 3])
 took_IR = list(df.iloc[:, 4])
 took_Stats = list(df.iloc[:, 5])
 took_DB = list(df.iloc[:, 6])
+took_courses = list(df.iloc[:, 3:6])
 gender = list(df.iloc[:, 7])
+choc = list(df.iloc[:, 8])
+neighbours = list(df.iloc[:, 9])
+stand = list(df.iloc[:, 10])
+stress = list(df.iloc[:, 11])
+money = list(df.iloc[:, 12])
+random_nr = list(df.iloc[:, 13])
+bedtime = list(df.iloc[:, 14])
+goodday1 = list(df.iloc[:, 15])
+goodday2 = list(df.iloc[:, 16])
+
+'''
+ideeen:
+- piecharts van categoriale vragen
+- correlaties tussen:
+    - stress + (gender, programs, neighbours, prev_courses, bedtime) [Karim]
+    - Stats + ML, IR, DB (mu/sigma = nee/ja?) [Karim]
+    - choc + gender [Karim]
+    - neighbours + stand
+    - program + money
+- goodday1 + goodday2 wordcounts [Daan]
+- random_nr (uniform histogram?) [Daan]
+    
+'''
+
+
 
 # pie_chart(programs)
-pie_chart(took_ML)
+# pie_chart(took_ML)
 # pie_chart(took_IR)
 # pie_chart(took_Stats)
 # pie_chart(took_DB)
-# pie_chart(gender)
+pie_chart(gender)
