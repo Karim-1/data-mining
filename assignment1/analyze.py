@@ -21,11 +21,9 @@ def pie_chart(data):
     ax1.pie(sizes, labels=labels, startangle=90)
     ax1.axis('equal')  
 
-    plt.show()
 
-def correlation(data):
-    for list in data:
-        pass
+def correlation(var1, var2):
+    plt.scatter(var1, var2)
 
 
 
@@ -38,12 +36,13 @@ took_DB = list(df.iloc[:, 6])
 took_courses = list(df.iloc[:, 3:6])
 gender = list(df.iloc[:, 7])
 choc = list(df.iloc[:, 8])
-neighbours = list(df.iloc[:, 9])
-stand = list(df.iloc[:, 10])
-stress = list(df.iloc[:, 11])
-money = list(df.iloc[:, 12])
-random_nr = list(df.iloc[:, 13])
-bedtime = list(df.iloc[:, 14])
+bday = list(df.iloc[:, 9])
+neighbours = list(df.iloc[:, 10])
+stand = list(df.iloc[:, 11])
+stress = list(df.iloc[:, 12])
+money = list(df.iloc[:, 13])
+random_nr = list(df.iloc[:, 14])
+bedtime = list(df.iloc[:, 15])
 goodday1 = list(df.iloc[:, 15])
 goodday2 = list(df.iloc[:, 16])
 
@@ -68,4 +67,8 @@ ideeen:
 # pie_chart(took_IR)
 # pie_chart(took_Stats)
 # pie_chart(took_DB)
-pie_chart(gender)
+# pie_chart(gender)
+
+# correlation(gender, stress)
+
+# plt.show()
