@@ -1,5 +1,9 @@
+from numpy.lib.function_base import delete
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
+from pandas.core.accessor import PandasDelegate
+import math
 
 def pie_chart(data):
     # count number of times similar values are in a list
@@ -21,28 +25,126 @@ def pie_chart(data):
     ax1.pie(sizes, labels=labels, startangle=90)
     ax1.axis('equal')  
 
+
+def correlation(var1, var2):
+    plt.scatter(var1, var2)
+
+def random_nrs(data):
+    data = [float(value) for value in data]
+    data = [int(value) for value in data if not math.isnan(value)]
+    data = sorted(data)
+    data = np.array(data)
+
+    x = [value for value in data if value < 1000000]
+
+    count = {}
+
+    for value in x:
+        count[value] = x.count(value)
+
+    count = dict((k, v) for k, v in count.items() if v > 1)
+
+    # count = dict(sorted(count.items(), key=lambda item: item[1]))
+
+    labels = count.keys()
+    counts = count.values()
+
+    x = np.arange(len(labels))
+    
+    fig, ax = plt.subplots()
+    ax.barh(x, counts)
+    ax.set_yticks(x)
+    ax.set_yticklabels(labels)
+    ax.set_xlabel('Counts')
+    ax.set_title('Counts of different random numbers')
+
+    fig.tight_layout()
+    plt.show()
+    
+
+    # fig.tight_layout()
+    # plt.hist(data, orientation="horizontal")
+
+    # ax.set_yticks()
+    # plt.yticks(data)
     plt.show()
 
-def correlation(data):
-    for list in data:
-        pass
-
 def good_day(day1, day2):  
-    goodwords = ["friends", "sun", "sport", "beer", "cats", "food"]
+    goodwords1 = set()
+    goodwords2 = set()
     count = {}
-    for word in goodwords:
-        count[word] = 0
+    count1 = {}
+    count2 = {}
 
     # first that comes to mind
     for good_day in day1:
-        for word in goodwords:
-            if word in str(good_day).lower():
+        sentence = good_day.strip()
+        words = (good_day.lower()).split(" ")
+        for word in words:
+            goodwords1.add(word)
+            count[word] = 0
+            count1[word] = 0
+    
+    # do same for 2nd day
+    for good_day in day2:
+        sentence = good_day.strip()
+        words = (good_day.lower()).split(" ")
+        for word in words:
+            goodwords2.add(word)
+            count[word] = 0
+            count2[word] = 0
+
+    # count words in both dicts
+    for good_day in day1:
+        for word in goodwords1:
+            if word in good_day:
                 count[word] += 1
+                count1[word] += 1
 
-    # second good day
+    for good_day in day2:
+        for word in goodwords2:
+            if word in good_day:
+                count[word] += 1
+                count2[word] += 1
 
+    # delete words with counts below threshold
+    threshold = 8
+    delete_counts = set()
+    delete_extra = ["the", "with", "some", "out", "time", "for", "off", "nice", "good", "friends", "and", "day", "sunny", "work"]
+    for key in delete_extra: delete_counts.add(key)
 
+    for key in count.keys():
+        if len(key) <= 2:
+            delete_counts.add(key)
+        elif count[key] < threshold: 
+            delete_counts.add(key)
 
+    for key in delete_counts: del count[key]
+
+    count["no stress"] = count["stress"]
+    count["friends"] = count["friend"]
+    count["sports"] = count["sport"]
+
+    delete_counts = ["stress", "friend", "sport"]
+    for key in delete_counts: del count[key]
+
+    # sort counts from low to high
+    count = dict(sorted(count.items(), key=lambda item: item[1]))
+
+    labels = count.keys()
+    counts = count.values()
+
+    x = np.arange(len(labels))
+    
+    fig, ax = plt.subplots()
+    ax.barh(x, counts)
+    ax.set_yticks(x)
+    ax.set_yticklabels(labels)
+    ax.set_xlabel('Counts')
+    ax.set_title('Counts of different key words')
+
+    fig.tight_layout()
+    plt.show()
 
 df = pd.read_csv('data/ODI-2021_trimmed.csv')
 programs = list(df.iloc[:, 2])
@@ -85,6 +187,8 @@ ideeen:
 # pie_chart(took_DB)
 # pie_chart(gender)
 
-good_day(goodday1, goodday2)
-print(goodday1)
+# print(goodday1)
+random_nrs(random_nr)
+# good_day(goodday1, goodday2)
+
 # print(goodday2)

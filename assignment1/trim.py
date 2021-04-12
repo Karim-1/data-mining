@@ -110,7 +110,6 @@ def trim_stand():
 
 def trim_stress():
     stress = df.iloc[:, 11]
-    count = 0
     
     for i in range(len(stress)):
         
