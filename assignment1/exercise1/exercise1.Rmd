@@ -1,0 +1,23 @@
+---
+title: "exercise1"
+author: "Karim Semin"
+date: "4/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+ODE = read.table("data/ODI-2021_trimmed.csv",header=TRUE, sep = ',', fill=TRUE)[,c(3:18)]
+ODE
+```
+```
+
+```{r}
+gender_vs_stress = data %>% select(5, 10)
+boxplot(gender_vs_stress)
+```
+
+

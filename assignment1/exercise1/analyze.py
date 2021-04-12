@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 
-def pie_chart(data):
+def pie_chart(data, title):
     # count number of times similar values are in a list
     data_counts = {i:data.count(i) for i in data}
     total_data_counts = sum(data_counts.values())
@@ -18,10 +18,19 @@ def pie_chart(data):
     labels = relevant_data_counts.keys()
     sizes = relevant_data_counts.values()
 
+    # function to only show percentage if >5%
+    def pct_filter(pct):
+        return ('%.1f%%' % pct) if pct > 5 else ''
+
     # create pie chart
     fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, labels=labels, startangle=90)
+    patches, texts, autotexts = ax1.pie(sizes, labels=labels, startangle=90, autopct=pct_filter)
+    # change font size if more than 4 labels
+    if len(labels) > 4:
+        texts = [text.set_fontsize(8) for text in texts]
+        # texts[0].set_fontsize(8)
     ax1.axis('equal')  
+    # ax1.set_title(title)
 
 
 def correlation(data, x_label, y_label):
@@ -60,15 +69,19 @@ ideeen:
     - program + money
 - goodday1 + goodday2 wordcounts [Daan]
 - random_nr (uniform histogram?) [Daan]
+
+- opmerking over ja/nee
     
 '''
 
-# pie_chart(programs)
-# pie_chart(took_ML)
-# pie_chart(took_IR)
-# pie_chart(took_Stats)
-# pie_chart(took_DB)
-# pie_chart(gender)
+pie_chart(programs, 'Background')
+pie_chart(took_ML, 'Took a course on machine learning?')
+pie_chart(took_IR, 'Took a course on information retrieval?')
+pie_chart(took_Stats, 'Took a course on statistics?')
+pie_chart(took_DB, 'Took a course on databases?')
+pie_chart(gender, 'Gender')
+
+plt.show()
 
 # gender_vs_stress = pd.DataFrame(gender, [float(i) for i in stress])
 # for i in range(len(gender)):
