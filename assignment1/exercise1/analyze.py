@@ -28,7 +28,6 @@ def pie_chart(data, title):
     # change font size if more than 4 labels
     if len(labels) > 4:
         texts = [text.set_fontsize(8) for text in texts]
-        # texts[0].set_fontsize(8)
     ax1.axis('equal')  
     # ax1.set_title(title)
 
@@ -74,14 +73,14 @@ ideeen:
     
 '''
 
-pie_chart(programs, 'Background')
-pie_chart(took_ML, 'Took a course on machine learning?')
-pie_chart(took_IR, 'Took a course on information retrieval?')
-pie_chart(took_Stats, 'Took a course on statistics?')
-pie_chart(took_DB, 'Took a course on databases?')
-pie_chart(gender, 'Gender')
+# pie_chart(programs, 'Background')
+# pie_chart(took_ML, 'Took a course on machine learning?')
+# pie_chart(took_IR, 'Took a course on information retrieval?')
+# pie_chart(took_Stats, 'Took a course on statistics?')
+# pie_chart(took_DB, 'Took a course on databases?')
+# pie_chart(gender, 'Gender')
 
-plt.show()
+# plt.show()
 
 # gender_vs_stress = pd.DataFrame(gender, [float(i) for i in stress])
 # for i in range(len(gender)):
