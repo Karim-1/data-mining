@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pandas.core.accessor import PandasDelegate
 import math
+import seaborn as sns
 
 def pie_chart(data):
     # count number of times similar values are in a list
@@ -16,7 +17,7 @@ def pie_chart(data):
     if other_count:
         relevant_data_counts['Other'] = other_count
 
-    # put values in labels
+    # retrieve values from dictionary
     labels = relevant_data_counts.keys()
     sizes = relevant_data_counts.values()
 
@@ -26,8 +27,9 @@ def pie_chart(data):
     ax1.axis('equal')  
 
 
-def correlation(var1, var2):
-    plt.scatter(var1, var2)
+def correlation(data, x_label, y_label):
+    # sns.catplot(data=data)
+    sns.catplot(x=x_label, y=y_label, kind="box", data=data)
 
 def random_nrs(data):
     data = [float(value) for value in data]
@@ -42,7 +44,7 @@ def random_nrs(data):
     for value in x:
         count[value] = x.count(value)
 
-    count = dict((k, v) for k, v in count.items() if v > 1)
+    # count = dict((k, v) for k, v in count.items() if v > 1)
 
     # count = dict(sorted(count.items(), key=lambda item: item[1]))
 
@@ -178,8 +180,6 @@ ideeen:
 - random_nr (uniform histogram?) [Daan]
 '''
 
-
-
 # pie_chart(programs)
 # pie_chart(took_ML)
 # pie_chart(took_IR)
@@ -187,8 +187,28 @@ ideeen:
 # pie_chart(took_DB)
 # pie_chart(gender)
 
-# print(goodday1)
 random_nrs(random_nr)
-# good_day(goodday1, goodday2)
+
+good_day(goodday1, goodday2)
+
+# gender_vs_stress = pd.DataFrame(gender, [float(i) for i in stress])
+# for i in range(len(gender)):
+#     if gender[i] == 'female':
+#         gender[i] = 0
+#     elif gender[i] == 'male':
+#         gender[i] = 1
+#     else:
+#         gender[i] = 2
+
+# for i in range(len(gender)-1, 0, -1):
+#     try:
+#         stress[i] = int(stress[i])
+#     except:
+#         del stress[i]
+#         del gender[i]
+
+# gender_vs_stress = pd.DataFrame({'stress level': stress})
+# print(gender_vs_stress.head())
+# correlation('gender', 'stress level', gender_vs_stress)
 
 # print(goodday2)

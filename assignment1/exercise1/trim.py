@@ -95,8 +95,10 @@ def trim_neighbours():
     # print(neighbours)
 
     for i in range(len(neighbours)):
+        # string to int, python library
         if not str(neighbours[i]).isdigit():
             # old = neighbours[i]
+            print(neighbours[i])
             neighbours[i] = None
 
 def trim_stand():
@@ -201,16 +203,16 @@ df = pd.read_csv('data/ODI-2021.csv')
 
 response_count = max(df.count())
 
-trim_program()
-trim_prev_courses()
-trim_gender()
-trim_choc()
-trim_birthday()
+# trim_program()
+# trim_prev_courses()
+# trim_gender()
+# trim_choc()
+# trim_birthday()
 trim_neighbours()
-trim_stand()
-trim_stress()
-trim_competition()
-trim_RN()
-trim_bedtime()
+# trim_stand()
+# trim_stress()
+# trim_competition()
+# trim_RN()
+# trim_bedtime()
 
 df.to_csv('data/ODI-2021_trimmed.csv')
