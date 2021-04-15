@@ -9,51 +9,83 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.linear_model import LinearRegression
 
 
-def lm(df):
-    # split into two variables
+def MSE(residuals, n):
+    return sum([x**2 for x in residuals]) / n
+    
+def MAE(residuals, n):
+    return sum([abs(x) for x in residuals]) / n
+
+def linear(df):
+    def objective(x, a, b):
+         return a * x + b 
+    
     age = df['age']
     size = df['circumference']
+    
+    popt, _ = curve_fit(objective, age, size)
+    a, b = popt
+    
+    n = len(age)
+    
+    x_line = np.linspace(min(age), max(age), n)
+    y_line = np.linspace(min(size), max(size), n)
 
-    # calculate slope 
-    slope, intercept = np.polyfit(age, size, 1)
+    # calculate residuals 
+    residuals = []
+    for i in range(n):
+        # residuals.append(objective(age[i], a, b) - size[i])
+        residuals.append(y_line[i] - size[i])
+    
+    # print mean square error and mean absolute error
+    print('linear MSE:', MSE(residuals, n))
+    print('linear MAE:', MAE(residuals, n))
+    
+    return x_line, y_line
 
-    # define predicted values based on regression methods
-    predicted_size_lm = slope*age + intercept
+    
+def fitted(df):
 
-    print('MSE = ', mean_squared_error(size, predicted_size_lm))
-    print('MAE = ', mean_absolute_error(size, predicted_size_lm))
+    def objective(x, a, b, c, d, e):
+         return a * x**4 + b * x**3 + c * x**2 + d * x + e
+    
+    age = df['age']
+    size = df['circumference']
+    
+    popt, _ = curve_fit(objective, age, size)
+    a, b, c, d, e = popt
+    
+    # define a sequence of inputs between the smallest and largest known inputs
+    x_line = np.arange(min(age), max(age), 1)
+    
+    # calculate the output for the range
+    y_line = objective(x_line, a, b, c, d, e)
 
-    plt.scatter(age, size, color = 'orange', label='actual values')
-    plt.vlines(age, predicted_size_lm, size, color='r', linewidth=.5, linestyle='dashed', label='residuals')
-    # plt.scatter(age, size, color = 'orange', s=size/2)
-    plt.plot(age, predicted_size_lm, linewidth=.5, color='black', label='predicted values')
-    plt.xlabel('Age (days)')
-    plt.ylabel('Circumference')
-    plt.grid()
-    plt.legend()
-    plt.show()
-
-
-def split_data(data):
-    # shuffle data to prevent bias
-    df = data.sample(frac=1)
-
-    rowcount = len(df.index)
-    train_data = df.head(30)
-    test_data = df.tail(rowcount-30, columns=['age','circumference'])
-    print(train_data)
-    print(test_data)
-
-    return train_data, test_data
-
-def lg(df):
-    train_data, test_data = split_data(df)
-
-    regression = LinearRegression().fit(train_data, test_data)
-    plt.plot(regression)
-    plt.show()
+    # calculate residuals 
+    n = len(age)
+    residuals = []
+    for i in range(n):
+        residuals.append(objective(age[i], a, b, c, d, e) - size[i])
+    
+    # print mean square error and mean absolute error
+    print('\nfitted MSE:', MSE(residuals, n))
+    print('fitted MAE:', MAE(residuals, n))
+    
+    return x_line, y_line
 
 # load data
 df = data("Orange")
-# lm(df)
-lg(df)
+age = df['age']
+size = df['circumference']
+
+# predict values with models
+linear_x, linear_y = linear(df)
+fitted_x, fitted_y = fitted(df)
+
+# plot data + predicted lines
+plt.scatter(age, size, color = 'orange', label='actual values')
+plt.plot(fitted_x, fitted_y, '--b', label='good fit')
+plt.plot(linear_x, linear_y, '--r', label='bad fit')
+plt.xlabel('Age (days)')
+plt.ylabel('Circumference')
+plt.legend()
+plt.show()
