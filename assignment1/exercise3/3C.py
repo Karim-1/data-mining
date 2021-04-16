@@ -11,9 +11,10 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 from sklearn.model_selection import train_test_split
 
 
-
-
 def read_file(filename):
+    '''
+    reads file and separates label from texts
+    '''
     labels, texts = [], []
     with open(filename) as file:
         csvreader = csv.reader(file, delimiter = '\n')
@@ -27,8 +28,10 @@ def read_file(filename):
 
 
 def transform_data(texts):
+    '''
+    prepares data for analysis
+    '''
     for text in texts:
-        '''trial 1'''
         # make all texts lower
         text = text.lower() 
         
@@ -47,7 +50,7 @@ labels, raw_texts = read_file('SmsCollection.csv')
 # clean up text messages
 clean_texts = transform_data(raw_texts)
 
-# create counts vectorizer with max 1500 bags of words, min of 5 word occurences, and filter words that are > 70% of texts
+# create counts vectorizer with max 1500 bags of words, min of 5 word occurences, and filter words that are in > 70% of texts
 tfidfconverter = TfidfVectorizer(max_features=1000, min_df=5, max_df=0.7)
 bags_of_words = tfidfconverter.fit_transform(clean_texts).toarray()
 
@@ -56,9 +59,11 @@ X_train, X_test, y_train, y_test = train_test_split(bags_of_words, labels, test_
 
 # define classifier
 classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
+
+# fit training data to classifier
 classifier.fit(X_train, y_train) 
 
-# predict values
+# predict values 
 y_pred = classifier.predict(X_test)
 
 print('Confusion matrix:')
