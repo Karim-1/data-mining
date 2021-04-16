@@ -2,9 +2,8 @@ import csv
 import nltk
 import numpy as np
 import string
+import re
 
-# nltk.download('stopwords')
-# from nltk.corpus import stopwords
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
@@ -31,16 +30,18 @@ def transform_data(texts):
     '''
     prepares data for analysis
     '''
-    for text in texts:
+    for i in range(len(texts)):
         # make all texts lower
-        text = text.lower() 
+        texts[i] = texts[i].lower() 
         
         # remove punctuation
-        translator = str.maketrans(string.punctuation, ' '*len(string.punctuation))
-        text = text.translate(translator)
+        texts[i] = re.sub(r'[^\w\s]', '', texts[i])
 
         # remove double space
-        text = text.replace('  ', ' ')
+        texts[i] = texts[i].replace('  ', ' ')
+
+        # remove numbers
+        texts[i] = ''.join([i for i in texts[i] if not i.isdigit()])
     
     return texts
 
@@ -55,7 +56,7 @@ tfidfconverter = TfidfVectorizer(max_features=1000, min_df=5, max_df=0.7)
 bags_of_words = tfidfconverter.fit_transform(clean_texts).toarray()
 
 # split into training and testing set
-X_train, X_test, y_train, y_test = train_test_split(bags_of_words, labels, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(bags_of_words, labels, test_size=0.1, random_state=0)
 
 # define classifier
 classifier = RandomForestClassifier(n_estimators=1000, random_state=0)
