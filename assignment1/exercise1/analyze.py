@@ -31,9 +31,13 @@ def pie_chart(data, title):
     # change font size if more than 4 labels
     if len(labels) > 4:
         texts = [text.set_fontsize(8) for text in texts]
+<<<<<<< HEAD
         # texts[0].set_fontsize(8)
     ax1.axis('equal')
     fig1.tight_layout()  
+=======
+    ax1.axis('equal')  
+>>>>>>> a4a564494a4114ce3840bf9d74aad8a49a3490c7
     # ax1.set_title(title)
     fig1.savefig("figures/pie_programs.pdf")
 
@@ -191,14 +195,14 @@ ideeen:
     
 '''
 
-pie_chart(programs, 'Background')
-pie_chart(took_ML, 'Took a course on machine learning?')
-pie_chart(took_IR, 'Took a course on information retrieval?')
-pie_chart(took_Stats, 'Took a course on statistics?')
-pie_chart(took_DB, 'Took a course on databases?')
-pie_chart(gender, 'Gender')
+# pie_chart(programs, 'Background')
+# pie_chart(took_ML, 'Took a course on machine learning?')
+# pie_chart(took_IR, 'Took a course on information retrieval?')
+# pie_chart(took_Stats, 'Took a course on statistics?')
+# pie_chart(took_DB, 'Took a course on databases?')
+# pie_chart(gender, 'Gender')
 
-plt.show()
+# plt.show()
 
 # random_nrs(random_nr)
 
