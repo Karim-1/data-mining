@@ -11,6 +11,9 @@ def trim_program():
     'BA':'Business Administration',
     'CS':'Computer Science',
     'CLS':'Computional Science',
+    'SCIENCES':'Science',
+    'AND': "&",
+    'OPERATION':'Operations',
     'EDS':'Econometrics and Data Science',
     'EOR':'Econometrics and Operations Research',
     'HLT':'Human Language Technology',
@@ -18,7 +21,7 @@ def trim_program():
     'QRM':'Quantitative Risk Management',
     }
 
-    stop_words = ['MSC', 'MASTERS', 'MASTER OF SCIENCE', 'MASTER', '(UVA)', ':', 'UVA', ' AT', '@']
+    stop_words = ['MSC', 'IN ', 'MASTERS', 'MASTER OF SCIENCE', 'MASTER', '(UVA)', ':', 'UVA', ' AT', '@']
     
     programs = df.iloc[:, 1]
 
@@ -95,8 +98,10 @@ def trim_neighbours():
     # print(neighbours)
 
     for i in range(len(neighbours)):
+        # string to int, python library
         if not str(neighbours[i]).isdigit():
             # old = neighbours[i]
+            print(neighbours[i])
             neighbours[i] = None
 
 def trim_stand():
@@ -135,8 +140,6 @@ def trim_competition():
         except:
             prices[i] = '-'
         
-    
-
 def trim_RN():
     rn = df.iloc[:, 13]
     for i in range(len(rn)):
