@@ -6,13 +6,13 @@ from pandas.core.accessor import PandasDelegate
 import math
 import seaborn as sns
 
-def pie_chart(data):
+def pie_chart(data, title):
     # count number of times similar values are in a list
     data_counts = {i:data.count(i) for i in data}
     total_data_counts = sum(data_counts.values())
     
     # only use keys with values > 4, put rest in 'Other'
-    relevant_data_counts = {k:v for (k,v) in data_counts.items() if v > 4}
+    relevant_data_counts = {k:v for (k,v) in data_counts.items() if v > 2}
     other_count = total_data_counts - sum(relevant_data_counts.values())
     if other_count:
         relevant_data_counts['Other'] = other_count
@@ -21,10 +21,21 @@ def pie_chart(data):
     labels = relevant_data_counts.keys()
     sizes = relevant_data_counts.values()
 
+    # function to only show percentage if >5%
+    def pct_filter(pct):
+        return ('%.1f%%' % pct) if pct > 3 else ''
+
     # create pie chart
     fig1, ax1 = plt.subplots()
-    ax1.pie(sizes, labels=labels, startangle=90)
-    ax1.axis('equal')  
+    patches, texts, autotexts = ax1.pie(sizes, labels=labels, startangle=90, autopct=pct_filter)
+    # change font size if more than 4 labels
+    if len(labels) > 4:
+        texts = [text.set_fontsize(8) for text in texts]
+        # texts[0].set_fontsize(8)
+    ax1.axis('equal')
+    fig1.tight_layout()  
+    # ax1.set_title(title)
+    fig1.savefig("figures/pie_programs.pdf")
 
 
 def correlation(data, x_label, y_label):
@@ -44,7 +55,7 @@ def random_nrs(data):
     for value in x:
         count[value] = x.count(value)
 
-    # count = dict((k, v) for k, v in count.items() if v > 1)
+    count = dict((k, v) for k, v in count.items() if v > 1)
 
     # count = dict(sorted(count.items(), key=lambda item: item[1]))
 
@@ -57,11 +68,10 @@ def random_nrs(data):
     ax.barh(x, counts)
     ax.set_yticks(x)
     ax.set_yticklabels(labels)
-    ax.set_xlabel('Counts')
-    ax.set_title('Counts of different random numbers')
-
+    ax.set_xlabel('Count')
     fig.tight_layout()
-    plt.show()
+    # plt.show()
+    fig.savefig("figures/random_nrs.pdf")
     
 
     # fig.tight_layout()
@@ -69,7 +79,6 @@ def random_nrs(data):
 
     # ax.set_yticks()
     # plt.yticks(data)
-    plt.show()
 
 def good_day(day1, day2):  
     goodwords1 = set()
@@ -142,10 +151,9 @@ def good_day(day1, day2):
     ax.barh(x, counts)
     ax.set_yticks(x)
     ax.set_yticklabels(labels)
-    ax.set_xlabel('Counts')
-    ax.set_title('Counts of different key words')
-
+    ax.set_xlabel('Count')
     fig.tight_layout()
+    fig.savefig("figures/goodday.pdf")
     plt.show()
 
 df = pd.read_csv('data/ODI-2021_trimmed.csv')
@@ -178,18 +186,23 @@ ideeen:
     - program + money
 - goodday1 + goodday2 wordcounts [Daan]
 - random_nr (uniform histogram?) [Daan]
+
+- opmerking over ja/nee
+    
 '''
 
-# pie_chart(programs)
-# pie_chart(took_ML)
-# pie_chart(took_IR)
-# pie_chart(took_Stats)
-# pie_chart(took_DB)
-# pie_chart(gender)
+pie_chart(programs, 'Background')
+pie_chart(took_ML, 'Took a course on machine learning?')
+pie_chart(took_IR, 'Took a course on information retrieval?')
+pie_chart(took_Stats, 'Took a course on statistics?')
+pie_chart(took_DB, 'Took a course on databases?')
+pie_chart(gender, 'Gender')
 
-random_nrs(random_nr)
+plt.show()
 
-good_day(goodday1, goodday2)
+# random_nrs(random_nr)
+
+# good_day(goodday1, goodday2)
 
 # gender_vs_stress = pd.DataFrame(gender, [float(i) for i in stress])
 # for i in range(len(gender)):

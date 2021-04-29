@@ -11,6 +11,9 @@ def trim_program():
     'BA':'Business Administration',
     'CS':'Computer Science',
     'CLS':'Computional Science',
+    'SCIENCES':'Science',
+    'AND': "&",
+    'OPERATION':'Operations',
     'EDS':'Econometrics and Data Science',
     'EOR':'Econometrics and Operations Research',
     'HLT':'Human Language Technology',
@@ -18,7 +21,7 @@ def trim_program():
     'QRM':'Quantitative Risk Management',
     }
 
-    stop_words = ['MSC', 'MASTERS', 'MASTER OF SCIENCE', 'MASTER', '(UVA)', ':', 'UVA', ' AT', '@']
+    stop_words = ['MSC', 'IN ', 'MASTERS', 'MASTER OF SCIENCE', 'MASTER', '(UVA)', ':', 'UVA', ' AT', '@']
     
     programs = df.iloc[:, 1]
 
@@ -137,8 +140,6 @@ def trim_competition():
         except:
             prices[i] = '-'
         
-    
-
 def trim_RN():
     rn = df.iloc[:, 13]
     for i in range(len(rn)):
@@ -203,16 +204,16 @@ df = pd.read_csv('data/ODI-2021.csv')
 
 response_count = max(df.count())
 
-# trim_program()
-# trim_prev_courses()
-# trim_gender()
-# trim_choc()
-# trim_birthday()
+trim_program()
+trim_prev_courses()
+trim_gender()
+trim_choc()
+trim_birthday()
 trim_neighbours()
-# trim_stand()
-# trim_stress()
-# trim_competition()
-# trim_RN()
-# trim_bedtime()
+trim_stand()
+trim_stress()
+trim_competition()
+trim_RN()
+trim_bedtime()
 
 df.to_csv('data/ODI-2021_trimmed.csv')
