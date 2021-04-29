@@ -31,13 +31,9 @@ def pie_chart(data, title):
     # change font size if more than 4 labels
     if len(labels) > 4:
         texts = [text.set_fontsize(8) for text in texts]
-<<<<<<< HEAD
         # texts[0].set_fontsize(8)
     ax1.axis('equal')
     fig1.tight_layout()  
-=======
-    ax1.axis('equal')  
->>>>>>> a4a564494a4114ce3840bf9d74aad8a49a3490c7
     # ax1.set_title(title)
     fig1.savefig("figures/pie_programs.pdf")
 
