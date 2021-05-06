@@ -10,6 +10,7 @@ import dateparser
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from numba import njit
 
 from numpy.core.numeric import NaN
 
@@ -242,18 +243,18 @@ def trim_data(df):
     trim_cols(df)
     
     # restructure data
-    df = trim_dates(df)
-    df = trim_avg_rating(df)
-    df = trim_avg_spent(df)
-    df = trim_loc_score(df)
-    df = trim_hist_price(df)
-    df = trim_price(df)
-    df = trim_book_window(df)
-    df = trim_dest_dist(df)
+    # df = trim_dates(df)
+    # df = trim_avg_rating(df)
+    # df = trim_avg_spent(df)
+    # df = trim_loc_score(df)
+    # df = trim_hist_price(df)
+    # df = trim_price(df)
+    # df = trim_book_window(df)
+    # df = trim_dest_dist(df)
     
     return df
     
 data = trim_data(df)
 
-data.to_csv('small_data/trimmed_data.csv')
+# data.to_csv('small_data/trimmed_data.csv')
 
