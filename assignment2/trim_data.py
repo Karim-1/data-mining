@@ -157,7 +157,7 @@ def trim_loc_score(data):
 
 def trim_hist_price(data):
     '''
-    rounds 
+    rounds prices or add NA for values of 0
     '''
     df = data.copy()
 
