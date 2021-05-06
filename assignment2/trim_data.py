@@ -23,9 +23,8 @@ def trim_data(df):
     # cols = cols[1:2] + cols[-2:] + cols[4:-3]
     # df = df[cols]
     
-
-
-    df = trim_avg_rating(df)
+    ratings = df['visitor_hist_starrating']
+    ratings = trim_avg_rating(ratings)
     df = trim_avg_spent(df)
     df = trim_loc_score(df)
     df = trim_hist_price(df)

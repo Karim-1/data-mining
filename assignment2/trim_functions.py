@@ -74,21 +74,11 @@ def trim_dates(dates):
     return months, dayparts
 
 
-# @jit(nopython=True)
-def trim_avg_rating(data):
+@jit(nopython=True)
+def trim_avg_rating(ratings):
     '''
     rounds average rating to halves
     '''
-    df = data.copy()
-
-    try:
-        ratings = df['visitor_hist_starrating']
-        print('Trimmming visitor_hist_starrating:')
-    except:
-        print("column 'visitor_hist_starrating' has been removed, can't be trimmed")
-        return df
-    
-    
     # round ratings to halves, or add NA if data is missing
     for i in tqdm(range(len(ratings))):
         try:
@@ -96,7 +86,7 @@ def trim_avg_rating(data):
         except:
             ratings[i] = 'NA'
         
-    return df
+    return ratings
 
 
 # @jit(nopython=True)
