@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 
 
-# @jit(nopython=True)
+# @jit
 def trim_cols(data):
     '''
     removes columns with >95% missing data values
@@ -50,13 +50,14 @@ def get_daypart(hour):
         return 'Night'
 
 
-# @njit
+# @jit
 def trim_dates(dates):
     '''
     replaces datetime column with separate month and daypart column
     '''
+    print('Trimming datetime:')
+
     months, dayparts = [], []
-    print(dates)
     
     for i in tqdm(range(len(dates))):
         # split date and time
@@ -74,116 +75,80 @@ def trim_dates(dates):
     return months, dayparts
 
 
-@jit(nopython=True)
-def trim_avg_rating(ratings):
+# @jit(nopython=False)
+def round_halves(raw_values):
     '''
-    rounds average rating to halves
+    rounds to halves
     '''
+    values = np.nan_to_num(raw_values)
+    
     # round ratings to halves, or add NA if data is missing
-    for i in tqdm(range(len(ratings))):
-        try:
-            ratings[i] = round(ratings[i] * 2) / 2
-        except:
-            ratings[i] = 'NA'
+    for i in tqdm(range(len(values))):
+        # progress bar    
+        if i % (1/len(values)) == 0:
+            print(i/len(values), '%', end='\r')
         
-    return ratings
+        values[i] = round(values[i] * 2) / 2
+    
+    return values
 
 
 # @jit(nopython=True)
-def trim_avg_spent(data):
+def trim_avg_spent(spent):
     '''
     trims average price spent per night for customers
 
     TODO: kijken of de distributie heel hoog is rondom een getal, en daar misschien meer 'bins' maken
     '''
-    df = data.copy()
-
-    try:
-        spent = df['visitor_hist_adr_usd']
-        print('Trimming visitor_hist_adr_usd:')
-    except:
-        print("column 'visitor_hist_adr_usd' has been removed, can't be trimmed")
-        return df
+    print('Trimming visitor_hist_adr_usd:')
+    # spent = df['visitor_hist_adr_usd'].to_numpy()
+    avg_spent = np.nan_to_num(spent)
 
     # round to every 50 dollars spent or add 'NA'
-    for i in tqdm(range(len(spent))):
-        try:
-            multiplier = round(spent[i]/50)
-            spent[i] = multiplier * 50
-        except:
-            spent[i] = 'NA'
-        
-    return df
+    for i in tqdm(range(len(avg_spent))):
+        multiplier = round(avg_spent[i]/50)
+        avg_spent[i] = multiplier * 50
+
+    return avg_spent
 
 
 # @jit(nopython=True)
-def trim_loc_score(data):
+def trim_loc_score(loc_score1, loc_score2):
     '''
     rounds location score to halves or adds 'NA' for missing values
     '''
-    df = data.copy()
+    print('Trimming prop_location_scores:')
+    score1 = np.nan_to_num(loc_score1)
+    score2 = np.nan_to_num(loc_score2)
 
-    try:
-        loc_score1 = df['prop_location_score1']
-        loc_score2 = df['prop_location_score2']
-        print('Trimming prop_location_score1 and prop_location_score2:')
-    except:
-        print("column 'prop_location_score1' or 'prop_location_score2' has been removed, can't be trimmed")
-        return df
+    for i in tqdm(range(len(score1))):
+        score1[i] = round(score1[i] * 2) / 2
+        score2[i] = round(score2[i] * 2) / 2    
 
-    
-    for i in tqdm(range(len(loc_score1))):
-        try:
-            loc_score1[i] = round(loc_score1[i] * 2) / 2
-        except:
-            loc_score1[i] = 'NA'
-            
-        try:
-            loc_score2[i] = round(loc_score2[i] * 2) / 2
-        except:
-            loc_score2[i] = 'NA'
-
-    return df
+    return score1, score2
 
 
 # @jit(nopython=True)
-def trim_hist_price(data):
+def trim_hist_price(price):
     '''
     rounds prices or add NA for values of 0
     '''
-    df = data.copy()
-
-    try:
-        hist_price = df['prop_log_historical_price']
-        print('Trimming prop_log_historical_price:')
-    except:
-        print("column 'prop_log_historical_price' has been removed, can't be trimmed")
-        return df
-    
+    print('Trimming prop_log_historical_price:')
+    hist_price = np.nan_to_num(price)
     for i in tqdm(range(len(hist_price))):
-        if hist_price[i] > 0:
-            hist_price[i] = round(hist_price[i] * 2) / 2
-        else:
-            hist_price[i] = 'NA'
-    
-    return df
+        hist_price[i] = round(hist_price[i] * 2) / 2
+        
+    return hist_price
 
 
 # @jit(nopython=True)
-def trim_price(data):
-    df = data.copy()
-    try:
-        price = df['price_usd']
-        print('Trimming price_usd:')
-    except:
-        print("column 'price_usd' has been removed, can't be trimmed")
-        return df
+def trim_price(price):
+    print('Trimming price_usd:')
+    trimmed_price = np.nan_to_num(price)
+    for i in tqdm(range(len(trimmed_price))):    
+        trimmed_price[i] = round(trimmed_price[i])
 
-    
-    for i in range(len(price)):    
-        price[i] = round(price[i])
-
-    return df
+    return trimmed_price
     
 
 # @jit(nopython=True)

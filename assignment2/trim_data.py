@@ -10,9 +10,10 @@ from trim_functions import *
 
 
 def trim_data(df):
+    # track time
     start_time = time.time()
-
     
+    # # trim dates
     # dates = df['date_time'].to_numpy()    
     # months, dayparts = trim_dates(dates)
     # df['month'] = months
@@ -23,14 +24,36 @@ def trim_data(df):
     # cols = cols[1:2] + cols[-2:] + cols[4:-3]
     # df = df[cols]
     
-    ratings = df['visitor_hist_starrating']
-    ratings = trim_avg_rating(ratings)
-    df = trim_avg_spent(df)
-    df = trim_loc_score(df)
-    df = trim_hist_price(df)
-    df = trim_price(df)
-    df = trim_book_window(df)
-    df = trim_dest_dist(df)
+    # trim ratings
+    print('Trimming visitor_hist_starrating:')
+    ratings = df['visitor_hist_starrating'].to_numpy()
+    ratings = round_halves(ratings)
+    df['visitor_hist_starrating'] = ratings
+
+    # trim avg spent
+    spent = df['visitor_hist_adr_usd'].to_numpy()
+    avg_spent = trim_avg_spent(spent)
+    df['visitor_hist_adr_usd'] = avg_spent
+
+    # trim location scores
+    loc_score1 = df['prop_location_score1'].to_numpy()
+    loc_score2 = df['prop_location_score2'].to_numpy()
+    loc_score1, loc_score2 = trim_loc_score(loc_score1, loc_score2)
+    df['prop_location_score1'] = loc_score1
+    df['prop_location_score2'] = loc_score2
+
+    # trim hist price
+    hist_price = df['prop_log_historical_price'].to_numpy()
+    trimmed_hist_price = trim_hist_price(hist_price)
+    df['prop_log_historical_price'] = trimmed_hist_price
+
+    # trim price
+    price = df['price_usd'].to_numpy()
+    trimmed_price = trim_price(price)
+    df['price_usd'] = trimmed_price
+
+    # df = trim_book_window(df)
+    # df = trim_dest_dist(df)
     
     
     print("--- trimming took %s seconds ---" % (round(time.time() - start_time)))
@@ -41,5 +64,5 @@ df = pd.read_csv("../training_set_VU_DM.csv")
 # df = pd.read_csv("small_data/3000_training_set_VU_DM.csv")
 data = trim_data(df)
 
-data.to_csv('../TRIMMED_training_set_VU_DM.csv')
+# data.to_csv('../TRIMMED_training_set_VU_DM.csv')
 
