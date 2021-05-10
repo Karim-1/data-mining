@@ -5,13 +5,10 @@ import numpy as np
 import pandas as pd
 import time
 
-from numba import jit, njit
 from numpy.core.numeric import NaN
 from tqdm import tqdm
 
 
-
-# @jit
 def trim_cols(data):
     '''
     removes columns with >95% missing data values
@@ -50,7 +47,6 @@ def get_daypart(hour):
         return 'Night'
 
 
-# @jit
 def trim_dates(dates):
     '''
     replaces datetime column with separate month and daypart column
@@ -75,7 +71,6 @@ def trim_dates(dates):
     return months, dayparts
 
 
-# @jit(nopython=False)
 def round_halves(raw_values):
     '''
     rounds to halves
@@ -93,7 +88,6 @@ def round_halves(raw_values):
     return values
 
 
-# @jit(nopython=True)
 def trim_avg_spent(spent):
     '''
     trims average price spent per night for customers
@@ -112,7 +106,6 @@ def trim_avg_spent(spent):
     return avg_spent
 
 
-# @jit(nopython=True)
 def trim_loc_score(loc_score1, loc_score2):
     '''
     rounds location score to halves or adds 'NA' for missing values
@@ -128,7 +121,6 @@ def trim_loc_score(loc_score1, loc_score2):
     return score1, score2
 
 
-# @jit(nopython=True)
 def trim_hist_price(price):
     '''
     rounds prices or add NA for values of 0
@@ -141,7 +133,6 @@ def trim_hist_price(price):
     return hist_price
 
 
-# @jit(nopython=True)
 def trim_price(price):
     print('Trimming price_usd:')
     trimmed_price = np.nan_to_num(price)
@@ -151,47 +142,27 @@ def trim_price(price):
     return trimmed_price
     
 
-# @jit(nopython=True)
-def trim_book_window(data):
+def trim_booking_window(bw):
     '''
     changes booking window from days to weeks
     '''
-    df = data.copy()
-    try:
-        booking_window = df['srch_booking_window']
-    except:
-        print("column 'srch_booking_window' has been removed, can't be trimmed")
-        return df
-
+    print('Trimming srch_booking_window')
+    booking_window = np.nan_to_num(bw)
     
     for i in tqdm(range(len(booking_window))):
-        try:
-            booking_window[i] = round(booking_window[i]/7)
-        except:
-            booking_window[i] = 'NA'
-
-    return df
+        booking_window[i] = round(booking_window[i]/7)
+        
+    return booking_window
 
 
-# @njit
-def trim_dest_dist(data):
+def trim_dest_dist(bw):
     '''
     divides distance to destination by 100 miles
     '''
-    df = data.copy()
-
-    try:
-        dest_dist = df['orig_destination_distance']
-        print('Trimming orig_destination_distance:')
-    except:
-        print("column 'orig_destination_distance' has been removed, can't be trimmed")
-        return df
+    booking_window = np.nan_to_num(bw)
+    print('Trimming orig_destination_distance:')
 
     for i in tqdm(range(len(dest_dist))):
-        try:
-            dest_dist[i] = round(dest_dist[i]/100)
-        except:
-            # booking_window[i] = 'NA'
-            dest_dist[i] = 'NA'
-
-    return df    
+        dest_dist[i] = round(dest_dist[i]/100)
+        
+    return dest_dist

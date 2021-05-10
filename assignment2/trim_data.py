@@ -52,8 +52,15 @@ def trim_data(df):
     trimmed_price = trim_price(price)
     df['price_usd'] = trimmed_price
 
-    # df = trim_book_window(df)
+    # trim booking window
+    booking_window = df['srch_booking_window'].to_numpy()
+    trimmed_booking_window = trim_booking_window(booking_window)
+    df['srch_booking_window'] = trimmed_booking_window
+
     # df = trim_dest_dist(df)
+    dest_dist = df['orig_destination_distance'].to_numpy()
+    trimmed_dest_dist = trim_dest_dist(dest_dist)
+    df['orig_destination_distance'] = trimmed_dest_dist
     
     
     print("--- trimming took %s seconds ---" % (round(time.time() - start_time)))
