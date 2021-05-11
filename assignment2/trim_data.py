@@ -7,6 +7,7 @@ column has not been removed due to >95% of data values missing.
 '''
 
 from trim_functions import *
+import time
 
 
 def trim_data(df):
