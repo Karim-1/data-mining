@@ -13,16 +13,16 @@ def trim_data(df):
     # track time
     start_time = time.time()
     
-    # # trim dates
-    # dates = df['date_time'].to_numpy()    
-    # months, dayparts = trim_dates(dates)
-    # df['month'] = months
-    # df['daypart'] = dayparts
+    # trim dates
+    dates = df['date_time'].to_numpy()    
+    months, dayparts = trim_dates(dates)
+    df['month'] = months
+    df['daypart'] = dayparts
 
-    # # change column order df
-    # cols = df.columns.tolist()
-    # cols = cols[1:2] + cols[-2:] + cols[4:-3]
-    # df = df[cols]
+    # change column order df
+    cols = df.columns.tolist()
+    cols = cols[1:2] + cols[-2:] + cols[4:-3]
+    df = df[cols]
     
     # trim ratings
     print('Trimming visitor_hist_starrating:')
@@ -57,7 +57,7 @@ def trim_data(df):
     trimmed_booking_window = trim_booking_window(booking_window)
     df['srch_booking_window'] = trimmed_booking_window
 
-    # df = trim_dest_dist(df)
+    # trim destination distance
     dest_dist = df['orig_destination_distance'].to_numpy()
     trimmed_dest_dist = trim_dest_dist(dest_dist)
     df['orig_destination_distance'] = trimmed_dest_dist

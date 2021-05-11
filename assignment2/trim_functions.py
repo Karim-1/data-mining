@@ -53,7 +53,7 @@ def trim_dates(dates):
     '''
     print('Trimming datetime:')
 
-    months, dayparts = [], []
+    months, dayparts = np.array([]), np.array([])
     
     for i in tqdm(range(len(dates))):
         # split date and time
@@ -61,12 +61,12 @@ def trim_dates(dates):
 
         # retrieve month 
         month = datetime.date().month
-        months.append(month)
+        np.append(months, month)
                 
         # retrieve daypart based on hour of the day
         hour = datetime.time().hour
         daypart = get_daypart(hour)
-        dayparts.append(daypart)
+        np.append(dayparts, daypart)
 
     return months, dayparts
 
@@ -155,11 +155,11 @@ def trim_booking_window(bw):
     return booking_window
 
 
-def trim_dest_dist(bw):
+def trim_dest_dist(dd):
     '''
     divides distance to destination by 100 miles
     '''
-    booking_window = np.nan_to_num(bw)
+    dest_dist = np.nan_to_num(dd)
     print('Trimming orig_destination_distance:')
 
     for i in tqdm(range(len(dest_dist))):
