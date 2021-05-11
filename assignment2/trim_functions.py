@@ -32,19 +32,20 @@ def trim_cols(data):
     return df
 
 
-def get_daypart(hour):
-    ''' 
-    retrieves daypart string based on hour of the day
-    for trim_dates function
-    '''
-    if (hour > 6) and (hour <= 12):
-        return 'Morning'
-    elif (hour > 12) and (hour <= 18 ):
-        return 'Afternoon'
-    elif (hour > 18) and (hour <= 24):
-        return 'Noon'
-    else:
-        return 'Night'
+# def get_daypart(hour):
+#     ''' 
+#     retrieves daypart string based on hour of the day
+#     for trim_dates function
+#     morning = 0, afternoon = 1, noon = 2, night = 3
+#     '''
+#     if (hour > 6) and (hour <= 12):
+#         return 0
+#     elif (hour > 12) and (hour <= 18 ):
+#         return 'Afternoon'
+#     elif (hour > 18) and (hour <= 24):
+#         return 'Noon'
+#     else:
+#         return 'Night'
 
 
 def trim_dates(dates):
@@ -63,9 +64,10 @@ def trim_dates(dates):
         month = datetime.date().month
         np.append(months, month)
                 
-        # retrieve daypart based on hour of the day
+        # retrieve daypart based on hour of the day (night = 1, morning = 2, afternoon = 3, noon = 4)
         hour = datetime.time().hour
-        daypart = get_daypart(hour)
+        daypart = int(np.round(hour/6 + .5))
+
         np.append(dayparts, daypart)
 
     return months, dayparts
@@ -115,8 +117,8 @@ def trim_loc_score(loc_score1, loc_score2):
     score2 = np.nan_to_num(loc_score2)
 
     for i in tqdm(range(len(score1))):
-        score1[i] = round(score1[i] * 2) / 2
-        score2[i] = round(score2[i] * 2) / 2    
+        score1[i] = np.round(score1[i] * 2) / 2
+        score2[i] = np.round(score2[i] * 2) / 2    
 
     return score1, score2
 
@@ -128,7 +130,7 @@ def trim_hist_price(price):
     print('Trimming prop_log_historical_price:')
     hist_price = np.nan_to_num(price)
     for i in tqdm(range(len(hist_price))):
-        hist_price[i] = round(hist_price[i] * 2) / 2
+        hist_price[i] = np.round(hist_price[i] * 2) / 2
         
     return hist_price
 
@@ -137,7 +139,7 @@ def trim_price(price):
     print('Trimming price_usd:')
     trimmed_price = np.nan_to_num(price)
     for i in tqdm(range(len(trimmed_price))):    
-        trimmed_price[i] = round(trimmed_price[i])
+        trimmed_price[i] = np.round(trimmed_price[i])
 
     return trimmed_price
     
@@ -150,7 +152,7 @@ def trim_booking_window(bw):
     booking_window = np.nan_to_num(bw)
     
     for i in tqdm(range(len(booking_window))):
-        booking_window[i] = round(booking_window[i]/7)
+        booking_window[i] = np.round(booking_window[i]/7)
         
     return booking_window
 
@@ -163,6 +165,6 @@ def trim_dest_dist(dd):
     print('Trimming orig_destination_distance:')
 
     for i in tqdm(range(len(dest_dist))):
-        dest_dist[i] = round(dest_dist[i]/100)
+        dest_dist[i] = np.round(dest_dist[i]/100)
         
     return dest_dist
