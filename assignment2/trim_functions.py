@@ -54,7 +54,7 @@ def trim_dates(dates):
     '''
     print('Trimming datetime:')
 
-    months, dayparts = np.array([]), np.array([])
+    months, dayparts = [], []
     
     for i in tqdm(range(len(dates))):
         # split date and time
@@ -62,13 +62,13 @@ def trim_dates(dates):
 
         # retrieve month 
         month = datetime.date().month
-        np.append(months, month)
+        months.append(month)
                 
         # retrieve daypart based on hour of the day (night = 1, morning = 2, afternoon = 3, noon = 4)
         hour = datetime.time().hour
         daypart = int(np.round(hour/6 + .5))
 
-        np.append(dayparts, daypart)
+        dayparts.append(daypart)
 
     return months, dayparts
 

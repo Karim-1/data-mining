@@ -68,8 +68,8 @@ def trim_data(df):
     
     return df
 
-df = pd.read_csv("../training_set_VU_DM.csv")
-# df = pd.read_csv("small_data/3000_training_set_VU_DM.csv")
+# df = pd.read_csv("../training_set_VU_DM.csv")
+df = pd.read_csv("small_data/3000_training_set_VU_DM.csv")
 data = trim_data(df)
 
 # data.to_csv('../TRIMMED_training_set_VU_DM.csv')
