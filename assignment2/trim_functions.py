@@ -31,23 +31,6 @@ def trim_cols(data):
 
     return df
 
-
-# def get_daypart(hour):
-#     ''' 
-#     retrieves daypart string based on hour of the day
-#     for trim_dates function
-#     morning = 0, afternoon = 1, noon = 2, night = 3
-#     '''
-#     if (hour > 6) and (hour <= 12):
-#         return 0
-#     elif (hour > 12) and (hour <= 18 ):
-#         return 'Afternoon'
-#     elif (hour > 18) and (hour <= 24):
-#         return 'Noon'
-#     else:
-#         return 'Night'
-
-
 def trim_dates(dates):
     '''
     replaces datetime column with separate month and daypart column
@@ -100,10 +83,10 @@ def trim_avg_spent(spent):
     # spent = df['visitor_hist_adr_usd'].to_numpy()
     avg_spent = np.nan_to_num(spent)
 
-    # round to every 50 dollars spent or add 'NA'
+    # round to every 20 dollars spent or add 'NA'
     for i in tqdm(range(len(avg_spent))):
-        multiplier = round(avg_spent[i]/50)
-        avg_spent[i] = multiplier * 50
+        multiplier = round(avg_spent[i]/20)
+        avg_spent[i] = multiplier * 20
 
     return avg_spent
 
@@ -135,13 +118,26 @@ def trim_hist_price(price):
     return hist_price
 
 
-def trim_price(price):
+def trim_price(id, prices):
+    '''
+    changes price relative to the average price of the query
+    '''
     print('Trimming price_usd:')
-    trimmed_price = np.nan_to_num(price)
-    for i in tqdm(range(len(trimmed_price))):    
-        trimmed_price[i] = np.round(trimmed_price[i])
+    prices = np.nan_to_num(prices)
+    query_prices = []
+    trimmed_prices = []
+    for i in tqdm(range(len(prices-1))):
+        query_prices.append(prices[i])
+        
+        # calculate relative price to average price
+        if id[i-1] != id[i] or i == len(prices)-1:
+            avg_query_price = np.mean(query_prices)
+            rel_query_prices = [int(np.round(price - avg_query_price)) for price in query_prices]
+            trimmed_prices.extend(rel_query_prices)
+            query_prices = []
+        
 
-    return trimmed_price
+    return trimmed_prices
     
 
 def trim_booking_window(bw):
