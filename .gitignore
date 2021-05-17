@@ -3,3 +3,6 @@
 .RData
 .Ruserdata
 training_set_VU_DM.csv
+test.csv
+train.csv
+train2.csv
