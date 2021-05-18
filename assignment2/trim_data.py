@@ -1,9 +1,6 @@
 
 '''
-trims the data, add
-_________________________________________________________________
-try-excepts have been added in each function to check whether the 
-column has not been removed due to >95% of data values missing.
+trims the data, adds new features
 '''
 
 from trim_functions import *
