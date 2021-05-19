@@ -60,6 +60,25 @@ def trim_data(df):
     # dest_dist = df['orig_destination_distance'].to_numpy()
     # trimmed_dest_dist = trim_dest_dist(dest_dist)
     # df['orig_destination_distance'] = trimmed_dest_dist
+
+
+    #Hotel quality (2nd place feature engineering solution)
+    hotel_quality = pd.DataFrame(df.prop_id.value_counts(dropna = False))
+
+    hotel_quality = hotel_quality.join(pd.DataFrame(df.prop_id[df.booking_bool == 1].value_counts().astype(int)), rsuffix = "book")
+    hotel_quality = hotel_quality.join(pd.DataFrame(df.prop_id[df.click_bool == 1].value_counts().astype(int)), rsuffix = "click")
+    hotel_quality.columns = ["counts", "booked", "clicked"]
+
+
+    hotel_quality["%booked_prop"] = hotel_quality.booked / hotel_quality.counts * 100
+    hotel_quality["%clicked_prop"] = hotel_quality.clicked / hotel_quality.counts * 100
+
+    df = df.join(hotel_quality['%booked_prop'], on = "prop_id").fillna(0)
+    df = df.join(hotel_quality['%clicked_prop'], on = "prop_id").fillna(0)
+
+    # #Add the same features to the test set
+    # test = test.join(hotel_quality['%booked_prop'], on = "prop_id")
+    # test = test.join(hotel_quality['%clicked_prop'], on = "prop_id")
     
     
     print("--- trimming took %s seconds ---" % (round(time.time() - start_time)))

@@ -164,3 +164,4 @@ def trim_dest_dist(dd):
         dest_dist[i] = np.round(dest_dist[i]/100)
         
     return dest_dist
+
